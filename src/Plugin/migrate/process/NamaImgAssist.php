@@ -86,18 +86,15 @@ class NamaImgAssist extends ProcessPluginBase {
    * @return string $image_path
    */
   private function getImagePath($nid) {
+
     // Look up the node referenced by the img_assist tag, then grab the image file ID from that node.
-    $query_image = Database::getConnection('default', 'migrate')->query('SELECT * FROM {image} WHERE nid=:nid', array(':nid' => $nid));
+    $image = Database::getConnection('default', 'migrate')->query('SELECT * FROM {image} WHERE nid=:nid', array(':nid' => $nid))->fetchObject();
 
     // Get the image path from the image file ID.
-    foreach ($query_image as $image) {
-      $query_file = Database::getConnection('default', 'migrate')->query('SELECT * FROM {files} WHERE fid=:fid', array(':fid' => $image->fid));
+    $file = Database::getConnection('default', 'migrate')->query('SELECT * FROM {files} WHERE fid=:fid', array(':fid' => $image->fid))->fetchObject();
 
-      foreach ($query_file as $file) {
-        // Add a slash at the beginning of the path.
-        $image_path = '/' . $file->filepath;
-      }
-    }
+    // Add a beginning slash to the path.
+    $image_path = '/' . $file->filepath;
 
     return $image_path;
   }
