@@ -47,8 +47,8 @@ class NamaImgAssist extends ProcessPluginBase {
     foreach ($matches as $image_marker) {
       list($img, $offset_in_tmp) = $image_marker;
 
-      // Strip off the first and last character - they are [ and ].
-      $img_pieces = preg_replace("/^\[(.*)\]$/", '${1}', $img);
+      // Strip off the first and last characters - they are [ and ].
+      $img_pieces = substr($img, 1, -1);
 
       // Break the img_assist string into useful bits.
       // The dollar-underscore variable is a junk collector.
