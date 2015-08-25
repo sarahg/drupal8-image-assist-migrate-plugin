@@ -22,7 +22,11 @@ use Drupal\migrate\Row;
 class NamaImgAssist extends ProcessPluginBase {
 
   /**
-   * {@inheritdoc}
+   * Find and return image assist tags.
+   *
+   * @param string $value string of text to search for image assist tags
+   *
+   * @return array $matches array of matched strings
    */
   protected function findImgAssistTags($value) {
     $pattern = "/\[img_assist(?:\\\\|\\\]|[^\]])*\]/"; // See http://rubular.com/r/gQs5HjGLok
@@ -31,7 +35,11 @@ class NamaImgAssist extends ProcessPluginBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Replace image assist tags with HTML image tags.
+   *
+   * @param string $value string of text to search for image assist tags
+   *
+   * @return array $matches array of matched strings
    */
   protected function replaceImgAssistTags($value) {
     $matches = self::findImgAssistTags($value);
@@ -71,7 +79,11 @@ class NamaImgAssist extends ProcessPluginBase {
   }
 
   /**
-   * {@inheritdoc}
+   * Look up an image file path by its node ID.
+   *
+   * @param int $nid an image node ID
+   *
+   * @return string $image_path
    */
   private function getImagePath($nid) {
     // Look up the node referenced by the img_assist tag, then grab the image file ID from that node.
