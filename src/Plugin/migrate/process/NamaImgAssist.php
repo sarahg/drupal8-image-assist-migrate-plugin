@@ -71,7 +71,7 @@ class NamaImgAssist extends ProcessPluginBase {
 
       // Retrieve the image path from the image node.
       $image_path = self::getImagePath($nid);
-      $image_tag = "<img alt=\"$desc\" src=\"$image_path\" style=\"width: ". $width ."px; height: ". $height ."px;\">";
+      $image_tag = "<img alt=\"$desc\" src=\"$image_path\" style=\"width: ". $width ."px; height: ". $height ."px;\" class=\"align-". $align ."\">";
 
       // Add the link if it exists.
       if ($link && $url) {
