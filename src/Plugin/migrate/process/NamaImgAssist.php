@@ -52,13 +52,19 @@ class NamaImgAssist extends ProcessPluginBase {
 
       // Break the img_assist string into useful bits.
       // The dollar-underscore variable is a junk collector.
-      list($_, $nid, $title, $desc, $link, $url, $align, $width, $height) = explode("|", $img_pieces);
+      // If there's a link on the image to an external URL,
+      // there are 8 pieces in the tag, so we need to adjust variable assignments.
+      if (count($pieces) == 8) {
+        list($_, $nid, $title, $desc, $link, $url, $align, $width, $height) = explode("|", $img_pieces);
+      }
+      else {
+        list($_, $nid, $title, $desc, $link, $align, $width, $height) = explode("|", $img_pieces);
+      }
 
       list($_, $nid) = explode('=', $nid, 2);
       list($_, $title) = explode('=', $title, 2);
       list($_, $desc) = explode('=', $desc, 2);
       list($_, $link) = explode('=', $link, 2);
-      list($_, $url) = explode('=', $url, 2);
       list($_, $align) = explode('=', $align, 2);
       list($_, $width) = explode('=', $width, 2);
       list($_, $height) = explode('=', $height, 2);
@@ -69,6 +75,7 @@ class NamaImgAssist extends ProcessPluginBase {
 
       // Add the link if it exists.
       if ($link && $url) {
+        list($_, $url) = explode('=', $url, 2);
         $image_tag = '<a href="'. $url .'">' . $image_tag . '</a>';
       }
 
