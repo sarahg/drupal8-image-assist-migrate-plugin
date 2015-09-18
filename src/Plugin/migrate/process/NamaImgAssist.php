@@ -30,7 +30,7 @@ class NamaImgAssist extends ProcessPluginBase {
    */
   protected function findImgAssistTags($value) {
     $pattern = "/\[img_assist(?:\\\\|\\\]|[^\]])*\]/"; // See http://rubular.com/r/gQs5HjGLok
-    preg_match($pattern, $value, $matches, PREG_OFFSET_CAPTURE); // The PREG_OFFSET_CAPTURE gives us the offset_in_tmp variable.
+    preg_match_all($pattern, $value, $matches, PREG_OFFSET_CAPTURE); // The PREG_OFFSET_CAPTURE gives us the offset_in_tmp variable.
     return $matches;
   }
 
@@ -44,7 +44,7 @@ class NamaImgAssist extends ProcessPluginBase {
   protected function replaceImgAssistTags($value) {
     $matches = self::findImgAssistTags($value);
 
-    foreach ($matches as $image_marker) {
+    foreach ($matches[0] as $image_marker) {
       list($img, $offset_in_tmp) = $image_marker;
 
       // Strip off the first and last characters - they are [ and ].
